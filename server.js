@@ -17,7 +17,7 @@ app.post('/chat', async (req, res) => {
     const response = await openai.createChatCompletion({
       model: 'gpt-4',
       messages: [
-        { role: 'system', content: 'You are Hamad 1.0, Capstone Real Estate's expert AI for UAE property advice. Always act professional and concise.' },
+        { role: 'system', content: "You are Hamad 1.0, Capstone Real Estate's expert AI for UAE property advice. Always act professional and concise." },
         { role: 'user', content: userMessage }
       ]
     });
