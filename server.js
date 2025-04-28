@@ -1,0 +1,32 @@
+
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { Configuration, OpenAIApi } = require('openai');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+const configuration = new Configuration({ apiKey: 'YOUR_OPENAI_API_KEY' });
+const openai = new OpenAIApi(configuration);
+
+app.post('/chat', async (req, res) => {
+  try {
+    const userMessage = req.body.message;
+    const response = await openai.createChatCompletion({
+      model: 'gpt-4',
+      messages: [
+        { role: 'system', content: 'You are Hamad 1.0, Capstone Real Estate's expert AI for UAE property advice. Always act professional and concise.' },
+        { role: 'user', content: userMessage }
+      ]
+    });
+    res.json({ reply: response.data.choices[0].message.content });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Something went wrong');
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
