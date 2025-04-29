@@ -9,7 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const OpenAI = require('openai');
-const openai = new OpenAI({ apiKey: 'YOUR_OPENAI_API_KEY' });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 
 app.post('/chat', async (req, res) => {
